@@ -6,7 +6,8 @@ import { UserRegistrationComponent } from './user-registration/user-registration
 const routes: Routes = [
   {
     path: "",
-    children:[{
+    children:[
+      {
         path: "dashboard",
         component: DashboardComponent
       },
