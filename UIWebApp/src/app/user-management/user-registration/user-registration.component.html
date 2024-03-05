@@ -8,8 +8,10 @@
     <div class="row my-3">
         <div class="col">
             <label for="userName" class="form-label">User Name <span class="required-asterisk">*</span></label>
-            <input type="text"  [(ngModel)]="modelSvc.user.userName" required class="form-control form-control-sm" id="userName" name="username" placeholder="User Name" #username="ngModel" appRedOnEmpty>
-            <div *ngIf="username.invalid && username.touched" class="text-danger">Username is required.</div>
+            <input type="text" [(ngModel)]="modelSvc.user.userName" required minlength="3" maxlength="20" class="form-control form-control-sm" id="userName" name="username" placeholder="User Name" #username="ngModel" appRedOnEmpty>
+            <div *ngIf="getValidationMessage('username', userForm)" class="text-danger">
+              {{ getValidationMessage('username', userForm) }}
+            </div>
           </div>
     </div>
 
@@ -17,15 +19,20 @@
   <div class="row my-3">
     <div class="col">
       <label for="email" class="form-label">Email <span class="required-asterisk">*</span></label>
-      <input type="email" class="form-control form-control-sm" [(ngModel)]="modelSvc.user.email" required id="email" name="email" placeholder="name@example.com" #email="ngModel" appRedOnEmpty>
-      <div *ngIf="email.invalid && email.touched" class="text-danger">Email is required.</div>
+      <input type="email" class="form-control form-control-sm" [(ngModel)]="modelSvc.user.email" required id="email" name="email" placeholder="Email" #email="ngModel" appRedOnEmpty
+          pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$">
+          <div *ngIf="getValidationMessage('email', userForm)" class="text-danger">
+            {{ getValidationMessage('email', userForm) }}
+          </div>
     </div>
   </div>
     <div class="row my-3">
         <div class="col">
         <label for="password" class="form-label">Password <span class="required-asterisk">*</span></label>
-        <input type="password" class="form-control form-control-sm" [(ngModel)]="modelSvc.user.password" required id="password" name="password" placeholder="Password" #password="ngModel" appRedOnEmpty>
-        <div *ngIf="password.invalid && password.touched" class="text-danger">Password is required.</div>
+        <input type="password" class="form-control form-control-sm" [(ngModel)]="modelSvc.user.password" required minlength="8" id="password" name="password" placeholder="Password" #password="ngModel" appRedOnEmpty>
+        <div *ngIf="getValidationMessage('password', userForm)" class="text-danger">
+          {{ getValidationMessage('password', userForm) }}
+        </div>
       </div>
     </div>
   <div class="row my-3">
