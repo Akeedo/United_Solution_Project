@@ -7,33 +7,36 @@
     <form #userForm="ngForm">
     <div class="row my-3">
         <div class="col">
-            <label for="userName" class="form-label">User Name</label>
-            <input type="text"  [(ngModel)]="modelSvc.user.userName" class="form-control form-control-sm" id="userName" name="userName" placeholder="User Name">
-        </div>
+            <label for="userName" class="form-label">User Name <span class="required-asterisk">*</span></label>
+            <input type="text"  [(ngModel)]="modelSvc.user.userName" required class="form-control form-control-sm" id="userName" name="username" placeholder="User Name" #username="ngModel">
+            <div *ngIf="username.invalid && username.touched" class="text-danger">Username is required.</div>
+          </div>
     </div>
 
 
   <div class="row my-3">
     <div class="col">
-      <label for="email" class="form-label">Email</label>
-      <input type="email" class="form-control form-control-sm" [(ngModel)]="modelSvc.user.email" id="email" name="email" placeholder="name@example.com">
+      <label for="email" class="form-label">Email <span class="required-asterisk">*</span></label>
+      <input type="email" class="form-control form-control-sm" [(ngModel)]="modelSvc.user.email" required id="email" name="email" placeholder="name@example.com" #email="ngModel">
+      <div *ngIf="email.invalid && email.touched" class="text-danger">Email is required.</div>
     </div>
   </div>
     <div class="row my-3">
         <div class="col">
-        <label for="password" class="form-label">Password</label>
-        <input type="password" class="form-control form-control-sm" [(ngModel)]="modelSvc.user.password" id="password" name="password" placeholder="Password">
-    </div>
+        <label for="password" class="form-label">Password <span class="required-asterisk">*</span></label>
+        <input type="password" class="form-control form-control-sm" [(ngModel)]="modelSvc.user.password" required id="password" name="password" placeholder="Password" #password="ngModel">
+        <div *ngIf="password.invalid && password.touched" class="text-danger">Password is required.</div>
+      </div>
     </div>
   <div class="row my-3">
     <div class="col">
-        <label for="confirmPassword" class="form-label">Confirm Password</label>
+        <label for="confirmPassword" class="form-label">Confirm Password <span class="required-asterisk">*</span></label>
         <input type="password" class="form-control form-control-sm" id="confirmPassword" placeholder="Confirm Password">
     </div>
   </div>
     <div class="row my-3">
         <div class="col">
-        <button type="submit" (click)="onSave(userForm)"  class="btn btn-primary">Register</button>
+        <button type="submit" (click)="onSave(userForm)" [disabled]="userForm.invalid" class="btn btn-primary">Register</button>
         </div>
     </div>
     </form>
