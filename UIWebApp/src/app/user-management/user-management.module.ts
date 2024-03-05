@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { UserManagementRoutingModule } from './user-management-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserRegistrationComponent } from './user-registration/user-registration.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,6 +12,7 @@ import { UserRegistrationComponent } from './user-registration/user-registration
   imports: [
     CommonModule,
     UserManagementRoutingModule,
+    FormsModule
     
   ]
 })

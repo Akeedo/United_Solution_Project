@@ -4,10 +4,11 @@
             <h3>User Registration</h3>
         </div>
     </div>
+    <form #userForm="ngForm">
     <div class="row my-3">
         <div class="col">
             <label for="userName" class="form-label">User Name</label>
-            <input type="text" class="form-control form-control-sm" id="firstName" placeholder="User Name">
+            <input type="text"  [(ngModel)]="modelSvc.user.userName" class="form-control form-control-sm" id="userName" name="userName" placeholder="User Name">
         </div>
     </div>
 
@@ -15,13 +16,13 @@
   <div class="row my-3">
     <div class="col">
       <label for="email" class="form-label">Email</label>
-      <input type="email" class="form-control form-control-sm" id="email" placeholder="name@example.com">
+      <input type="email" class="form-control form-control-sm" [(ngModel)]="modelSvc.user.email" id="email" name="email" placeholder="name@example.com">
     </div>
   </div>
     <div class="row my-3">
         <div class="col">
         <label for="password" class="form-label">Password</label>
-        <input type="password" class="form-control form-control-sm" id="password" placeholder="Password">
+        <input type="password" class="form-control form-control-sm" [(ngModel)]="modelSvc.user.password" id="password" name="password" placeholder="Password">
     </div>
     </div>
   <div class="row my-3">
@@ -32,9 +33,10 @@
   </div>
     <div class="row my-3">
         <div class="col">
-        <button type="submit" class="btn btn-primary">Register</button>
+        <button type="submit" (click)="onSave(userForm)"  class="btn btn-primary">Register</button>
         </div>
     </div>
+    </form>
 </div>
 
 
