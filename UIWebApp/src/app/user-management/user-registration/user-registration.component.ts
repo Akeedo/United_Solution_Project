@@ -21,8 +21,7 @@ export class UserRegistrationComponent implements OnInit{
   }
 
   onSave(userForm: NgForm) {
-    const newUser = { id: 3, userName: 'Johny Doe', email: 'es2@g', password: 'secret3' };
-    this.dataSvc.saveUser(newUser).subscribe({
+    this.dataSvc.saveUser(this.modelSvc.user).subscribe({
       next: (data) => {
         // This function runs when the Observable emits a value (i.e., the request succeeds)
         console.log('User saved successfully', data);
