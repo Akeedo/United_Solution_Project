@@ -56,7 +56,7 @@ export class UserRegistrationComponent implements OnInit{
       },
       error: (error) => {
         // This function runs when the Observable emits an error (i.e., the request fails)
-        console.error('Error saving user', error);
+        console.log('Error saving user', error);
       },
       complete: () => {
         // This function runs when the Observable completes (i.e., no more values or errors will be emitted)

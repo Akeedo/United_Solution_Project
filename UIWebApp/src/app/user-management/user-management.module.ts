@@ -13,7 +13,7 @@ import { RedOnEmptyDirective } from '../shared/directives/red-on-empty.directive
   imports: [
     CommonModule,
     UserManagementRoutingModule,
-    FormsModule
+    
     
   ]
 })
