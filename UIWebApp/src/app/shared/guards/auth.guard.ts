@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router, CanActivateChild } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router, CanActivateChild, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service'; // Adjust the path as needed
 
@@ -8,7 +8,7 @@ import { AuthService } from '../services/auth.service'; // Adjust the path as ne
 })
 export class AuthGuard implements CanActivate, CanActivateChild  {
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private activedRoute: ActivatedRoute) {}
 
   canActivateChild(
     childRoute: ActivatedRouteSnapshot,
@@ -20,10 +20,10 @@ export class AuthGuard implements CanActivate, CanActivateChild  {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     
-      const expectedUserName = route.data['expectedUserName'];
+      const expectedUserName =  route.data['expectedUserName'];
       const currentUserName = this.authService.getCurrentUserName();
-      if (currentUserName !== expectedUserName) {
-        this.router.navigate(['/user-management/dashboard']); // Redirect to login page
+      if (expectedUserName && currentUserName !== expectedUserName) {
+        this.router.navigate(['/user-management/auth/login']); // Redirect to login page
         return false;
       } 
 
