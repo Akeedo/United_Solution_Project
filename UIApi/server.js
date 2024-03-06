@@ -12,6 +12,21 @@ require('./database');
 const User = require('./models/User');
 const JWT_SECRET = process.env.JWT_SECRET || 'ef3d171d0fb5328c8c12f188e34b403a94bd4cf9600e34ac664280eebb6a1947'; // It's better to use an environment variable for the secret key
 
+const authenticateToken = (req, res, next) => {
+  // Get the token from the authorization header
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1]; // Bearer TOKEN
+
+  if (token == null) return res.sendStatus(401); // If no token is provided, return an unauthorized status
+
+  jwt.verify(token, JWT_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403); // If token is not valid or expired, return a forbidden status
+    req.user = user;
+    next(); // Proceed to the next middleware/route handler
+  });
+};
+
+
 const app = express();
 app.use(bodyParser.json());
 
@@ -45,6 +60,11 @@ app.post('/login', [
     return res.status(400).json({ errors: errors.array() });
   }
 
+  app.get('/protected-route', authenticateToken, (req, res) => {
+    // This route is now protected
+    res.status(200).send("Access to protected data");
+  });
+
   // Extract values
   const { email, password } = req.body;
 
@@ -73,6 +93,7 @@ app.post('/login', [
 
 // CREATE
 app.post('/users', [
+    authenticateToken, // This route is now protected
     // Validation and sanitization rules
     body('userName').trim().escape(),
     body('email').isEmail().normalizeEmail(),
