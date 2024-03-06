@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit{
     this.dataSvc.onLogin(this.modelSvc.user).subscribe({
       next: (data) => {
         // This function runs when the Observable emits a value (i.e., the request succeeds)
-        console.log('User saved successfully', data);
+      localStorage.setItem('access_token', data.token);
       },
       error: (error) => {
         // This function runs when the Observable emits an error (i.e., the request fails)
