@@ -15,6 +15,10 @@ export class AuthService {
     return !!token;
   }
 
+  getCurrentUserName() {
+    return localStorage.getItem('userName');
+  }
+
   // Method to log out the user
   logout() {
     localStorage.removeItem('access_token'); // Remove the token
