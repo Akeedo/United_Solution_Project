@@ -13,6 +13,10 @@ export class UserDataServiceService {
 
   private apiURL: string = 'http://localhost:3000';
 
+    onLogin(user: any): Observable<any>{
+      return this.http.post<any>(this.apiURL +'/login', user);
+  }
+
     saveUser(user: any): Observable<any>{
       return this.http.post<any>(this.apiURL +'/users', user);
     }
