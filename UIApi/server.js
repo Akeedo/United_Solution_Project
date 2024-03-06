@@ -5,10 +5,12 @@ const cors = require('cors');
 const Joi = require('joi');
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 
 require('./database');
 const User = require('./models/User');
+const JWT_SECRET = process.env.JWT_SECRET || 'ef3d171d0fb5328c8c12f188e34b403a94bd4cf9600e34ac664280eebb6a1947'; // It's better to use an environment variable for the secret key
 
 const app = express();
 app.use(bodyParser.json());
@@ -31,7 +33,43 @@ const validateUser = (req, res, next) => {
     next();
   };
 
-  
+  // Login route
+app.post('/login', [
+  // Validation and sanitization rules for login
+  body('email').isEmail().normalizeEmail(),
+  body('password').trim(),
+], async (req, res) => {
+  // Check for validation errors
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  // Extract values
+  const { email, password } = req.body;
+
+  try {
+    // Check if user exists with the given email
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).send({ message: "User not found." });
+    }
+
+    // Compare the provided password with the hashed password in the database
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).send({ message: "Invalid credentials." });
+    }
+
+  // User authentication successful, issue a token
+  const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '1h' }); // Adjust expiresIn as needed
+
+    // If password matches, login successful
+    res.status(200).send({ message: "Login successful", user: { id: user.id, userName: user.userName, email: user.email }, token });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
 
 // CREATE
 app.post('/users', [
