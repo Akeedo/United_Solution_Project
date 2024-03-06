@@ -20,17 +20,16 @@ const routes: Routes = [
   // Protected routes
   {
     path: '',
-   children: [
+    canActivateChild: [AuthGuard], // Applying AuthGuard to all child routes
+    children: [
       {
         path: 'dashboard',
         component: DashboardComponent,
-        canActivate: [AuthGuard],
       },
       {
         path: 'user-registration',
         component: UserRegistrationComponent,
-        canActivate: [AuthGuard],
-        data: { expectedUserName: 'admin' }
+        data: { expectedUserName: 'admin' }, // Example of passing data to the guard
       },
       // Add more protected routes here
     ],
