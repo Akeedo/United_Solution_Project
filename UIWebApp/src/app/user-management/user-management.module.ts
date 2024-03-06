@@ -6,14 +6,15 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserRegistrationComponent } from './user-registration/user-registration.component';
 import { FormsModule } from '@angular/forms';
 import { RedOnEmptyDirective } from '../shared/directives/red-on-empty.directive';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
-  declarations: [DashboardComponent, UserRegistrationComponent,RedOnEmptyDirective],
+  declarations: [DashboardComponent, UserRegistrationComponent, LoginComponent, RedOnEmptyDirective],
   imports: [
     CommonModule,
     UserManagementRoutingModule,
-    
+    FormsModule
     
   ]
 })
