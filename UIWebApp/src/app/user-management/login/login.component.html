@@ -1,1 +1,29 @@
-<p>login works!</p>
+<div class="container-fluid py-3">
+    <div class="row">
+        <div class="col">
+            <h3>Login Page</h3>
+        </div>
+    </div>
+    <form #loginForm="ngForm">
+    <div class="row my-3">
+        <div class="col">
+        <label for="email" class="form-label">Email <span class="required-asterisk">*</span></label>
+        <input type="email" class="form-control form-control-sm" [(ngModel)]="modelSvc.user.email" required id="email" name="email" placeholder="Email"
+            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$">
+        </div>
+    </div>
+    <div class="row my-3">
+        <div class="col">
+        <label for="password" class="form-label">Password <span class="required-asterisk">*</span></label>
+        <input type="password" class="form-control form-control-sm" [(ngModel)]="modelSvc.user.password" required minlength="8" id="password" name="password" placeholder="Password" >
+    </div>
+    </div>
+    <div class="row my-3">
+        <div class="col">
+        <button type="submit" (click)="onSave(loginForm)" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+    </form>
+</div>
+
+
