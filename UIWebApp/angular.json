@@ -37,7 +37,15 @@
              "src/assets/css/fullcalendar.min.css" ,
              "src/assets/css/tooplate.css" 
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/jquery-3.3.1.min.js",
+              "src/assets/js/moment.min.js",
+              "src/assets/js/utils.js",
+              "src/assets/js/Chart.min.js",
+              "src/assets/js/fullcalendar.min.js",
+              "src/assets/js/bootstrap.min.js",
+              "src/assets/js/tooplate-scripts.js"
+            ]
           },
           "configurations": {
             "production": {
