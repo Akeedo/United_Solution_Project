@@ -5,6 +5,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
+import { NavbarComponent } from './shared/components/navbar/navbar.component';
+import { SharedModule } from './shared/shared.module';
 
 
 
@@ -13,12 +15,13 @@ import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
+    
 ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-
+    SharedModule,
     
   ],
   providers: [
