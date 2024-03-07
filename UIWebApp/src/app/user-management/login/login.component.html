@@ -1,40 +1,49 @@
-<div class="container-fluid py-3">
-    <div class="row">
-        <div class="col">
-            <h3>Login Page</h3>
+<div class="container">
+    <div class="row tm-mt-big">
+        <div class="col-12 mx-auto tm-login-col">
+            <div class="bg-white tm-block">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <i class="fas fa-3x fa-tachometer-alt tm-site-icon text-center"></i>
+                        <h2 class="tm-block-title mt-3">Login</h2>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <form #loginForm="ngForm" class="tm-login-form">
+                            <div class="input-group">
+                                <label for="email" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Email  <span class="required-asterisk">*</span></label>
+                                <input type="email" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7" [(ngModel)]="modelSvc.user.email" required id="email" name="email" placeholder="Email" #email="ngModel" appRedOnEmpty
+                                    pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$">
+                                 <div *ngIf="modelSvc.getValidationMessage('email', loginForm)" class="text-danger">
+                                    {{ modelSvc.getValidationMessage('email', loginForm) }}
+                                </div>
+                            </div>
+                            <div class="input-group mt-3">
+                                <label for="password" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Password<span class="required-asterisk">*</span></label>
+                                <input type="password" class="form-control form-control-sm" [(ngModel)]="modelSvc.user.password" required minlength="8" id="password" name="password" placeholder="Password" #password="ngModel" appRedOnEmpty>
+                                <div *ngIf="modelSvc.getValidationMessage('password', loginForm)" class="text-danger">
+                                    {{ modelSvc.getValidationMessage('password', loginForm) }}
+                                  </div>
+                            </div>
+                            <div class="input-group mt-3">
+                                <button type="submit" (click)="onSave(loginForm)" class="btn btn-primary d-inline-block mx-auto">Login</button>
+                            </div>
+                            <div class="input-group mt-3">
+                                <p><em>Just put a character to login.</em></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="row my-3">
-        <div class="col">
-            <p class="text-danger" *ngIf="errorMessage">{{ errorMessage }}</p>
+    <footer class="row tm-mt-big">
+        <div class="col-12 font-weight-light text-center">
+            <p class="d-inline-block tm-bg-black text-white py-2 px-4">
+                Copyright &copy; 2024 UI Solution Dashboard . Created by
+                <a rel="nofollow" href="https://github.com/Akeedo" class="text-white tm-footer-link">Akeed Anjum</a>
+            </p>
         </div>
-    </div>
-    <form #loginForm="ngForm">
-    <div class="row my-3">
-        <div class="col">
-        <label for="email" class="form-label">Email <span class="required-asterisk">*</span></label>
-        <input type="email" class="form-control form-control-sm" [(ngModel)]="modelSvc.user.email" required id="email" name="email" placeholder="Email" #email="ngModel" appRedOnEmpty
-            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$">
-        </div>
-        <div *ngIf="modelSvc.getValidationMessage('email', loginForm)" class="text-danger">
-            {{ modelSvc.getValidationMessage('email', loginForm) }}
-        </div>
-    </div>
-    <div class="row my-3">
-        <div class="col">
-        <label for="password" class="form-label">Password <span class="required-asterisk">*</span></label>
-        <input type="password" class="form-control form-control-sm" [(ngModel)]="modelSvc.user.password" required minlength="8" id="password" name="password" placeholder="Password" #password="ngModel" appRedOnEmpty>
-        <div *ngIf="modelSvc.getValidationMessage('password', loginForm)" class="text-danger">
-            {{ modelSvc.getValidationMessage('password', loginForm) }}
-          </div>
-    </div>
-    </div>
-    <div class="row my-3">
-        <div class="col">
-        <button type="submit" (click)="onSave(loginForm)" class="btn btn-primary">Submit</button>
-        </div>
-    </div>
-    </form>
+    </footer>
 </div>
-
-
