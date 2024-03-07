@@ -11,18 +11,26 @@ const jwt = require('jsonwebtoken');
 require('./database');
 const User = require('./models/User');
 const JWT_SECRET = process.env.JWT_SECRET || 'ef3d171d0fb5328c8c12f188e34b403a94bd4cf9600e34ac664280eebb6a1947'; // It's better to use an environment variable for the secret key
+const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || '3c0273f989ec034f8cb204e53bcac115433f8e64a3ba561131eb109f23ecfa87';
 
 const authenticateToken = (req, res, next) => {
-  // Get the token from the authorization header
   const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1]; // Bearer TOKEN
+  const token = authHeader && authHeader.split(' ')[1]; // Extract the token
 
-  if (token == null) return res.sendStatus(401); // If no token is provided, return an unauthorized status
+  if (!token) return res.status(401).send('Access Token Required');
 
   jwt.verify(token, JWT_SECRET, (err, user) => {
-    if (err) return res.sendStatus(403); // If token is not valid or expired, return a forbidden status
-    req.user = user;
-    next(); // Proceed to the next middleware/route handler
+    if (err) {
+      // Token validation error or expired token
+      const isExpired = err.name === 'TokenExpiredError';
+      if (isExpired) {
+        return res.status(401).send('Token Expired');
+      } else {
+        return res.status(403).send('Invalid Token');
+      }
+    }
+    req.user = user; // Attach the decoded user payload to the request object
+    next();
   });
 };
 
@@ -82,13 +90,27 @@ app.post('/login', [
     }
 
   // User authentication successful, issue a token
-  const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '1h' }); // Adjust expiresIn as needed
+  const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '3m' }); // Adjust expiresIn as needed
+  const refreshToken = jwt.sign({ userId: user._id }, JWT_REFRESH_SECRET, { expiresIn: '5m' }); // Adjust expiresIn as needed
 
     // If password matches, login successful
-    res.status(200).send({ message: "Login successful", user: { id: user.id, userName: user.userName, email: user.email }, token });
+    res.status(200).send({ message: "Login successful", user: { id: user.id, userName: user.userName, email: user.email }, token, refreshToken });
   } catch (error) {
     res.status(500).send(error);
   }
+});
+
+app.post('/refresh-token', (req, res) => {
+  const refreshToken = req.body.token;
+  if (!refreshToken) return res.status(401).send('Refresh Token Required');
+
+  jwt.verify(refreshToken, JWT_REFRESH_SECRET, (err, user) => {
+    if (err) return res.status(403).send('Invalid Refresh Token');
+
+    // Assuming the refresh token is valid, issue a new access token
+    const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: '5m' });
+    res.json({ token, });
+  });
 });
 
 // CREATE
@@ -132,6 +154,7 @@ app.post('/users', [
     }
   });
 
+ 
 // READ (all users)
 app.get('/users', async (req, res) => {
   try {
