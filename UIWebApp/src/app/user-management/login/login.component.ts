@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit{
         next: (response) => {
           // This function runs when the Observable emits a value (i.e., the request succeeds)
         localStorage.setItem('access_token', response.token);
+        localStorage.setItem('refresh_token', response.refreshToken);
         localStorage.setItem('userName', response.user.userName);
         localStorage.setItem('email', response.user.email);
         
