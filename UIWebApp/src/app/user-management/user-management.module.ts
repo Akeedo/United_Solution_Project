@@ -7,6 +7,10 @@ import { UserRegistrationComponent } from './user-registration/user-registration
 import { FormsModule } from '@angular/forms';
 import { RedOnEmptyDirective } from '../shared/directives/red-on-empty.directive';
 import { LoginComponent } from './login/login.component';
+import { StoreModule } from '@ngrx/store';
+import { authReducer } from '../shared/states/auth.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from '../shared/states/auth.effects';
 
 
 @NgModule({
@@ -14,7 +18,9 @@ import { LoginComponent } from './login/login.component';
   imports: [
     CommonModule,
     UserManagementRoutingModule,
-    FormsModule
+    FormsModule,
+    StoreModule.forFeature('auth', authReducer),
+    EffectsModule.forFeature([AuthEffects]),
     
   ]
 })

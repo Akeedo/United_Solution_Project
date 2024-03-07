@@ -8,6 +8,8 @@ import { SharedModule } from './shared/shared.module';
 import { RedOnEmptyDirective } from './shared/directives/red-on-empty.directive';
 import { FormsModule } from '@angular/forms';
 import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 
 
@@ -20,6 +22,8 @@ import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
     
   ],
   providers: [

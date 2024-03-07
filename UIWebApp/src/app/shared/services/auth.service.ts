@@ -1,12 +1,20 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private http: HttpClient) { }
+
+  private apiURL: string = 'http://localhost:3000';
+
+  onLogin(user: any): Observable<any>{
+    return this.http.post<any>(this.apiURL +'/login', user);
+}
 
    // Example implementation
    isLoggedIn(): boolean {
