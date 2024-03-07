@@ -2,3 +2,34 @@
 .required-asterisk {
     color: red;
   }
+
+  .main-content {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.card {
+    background-color: #f4f4f4;
+    padding: 20px;
+    margin-top: 20px;
+    width: 30%; /* Adjust card width as needed */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-radius: 5px;
+}
+
+.card h3, .card p {
+    margin: 0;
+    text-align: center;
+}
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media (max-width: 600px) {
+    .main-content {
+        flex-direction: column;
+    }
+    .card {
+        margin: 0 auto; /* Center the cards on smaller screens */
+        width: 80%; /* Adjust card width on small screens */
+    }
+}
