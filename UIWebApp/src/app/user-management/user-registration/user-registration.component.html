@@ -7,11 +7,17 @@
                   <div class="col-12">
                       <h2 class="tm-block-title d-inline-block">User Registration</h2>
                   </div>
+                  <div class="col-3"></div>
+                  <div class="col-9">
+                  <div *ngIf="!userForm.form.valid" class="text-danger">
+                    Please fill all the required fields.
+                </div>
+              </div>
               </div>
               <div class="row mt-4 tm-edit-product-row">
                   <div class="col-xl-7 col-lg-7 col-md-12">
-                      <form action="" #userForm="ngForm">
-                          <div class="input-group mb-3">
+                    <form action="" #userForm="ngForm">
+                       <div class="input-group mb-3">
                               <label for="username" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">User
                                   Name <span class="required-asterisk">*</span>
                               </label>
@@ -46,8 +52,7 @@
                                 (click)="userForm.form.valid ? onSave(userForm) : $event.preventDefault()">
                             Register
                         </button>
-                        
-                              </div>
+                        </div>
                           </div>
                       </form>
                   </div>
