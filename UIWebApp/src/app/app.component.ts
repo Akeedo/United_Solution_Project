@@ -14,7 +14,7 @@ export class AppComponent {
   constructor(private router: Router, public authService: AuthService) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        this.showNavbar = !this.router.url.includes('/user-management/auth/login');
+        this.showNavbar = !this.router.url.includes('login');
       }
     });
   }
