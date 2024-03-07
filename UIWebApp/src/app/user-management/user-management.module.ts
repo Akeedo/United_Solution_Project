@@ -8,9 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { RedOnEmptyDirective } from '../shared/directives/red-on-empty.directive';
 import { LoginComponent } from './login/login.component';
 import { StoreModule } from '@ngrx/store';
-import { authReducer } from '../shared/states/auth.reducer';
 import { EffectsModule } from '@ngrx/effects';
-import { AuthEffects } from '../shared/states/auth.effects';
+
 
 
 @NgModule({
@@ -19,9 +18,6 @@ import { AuthEffects } from '../shared/states/auth.effects';
     CommonModule,
     UserManagementRoutingModule,
     FormsModule,
-    StoreModule.forFeature('auth', authReducer),
-    EffectsModule.forFeature([AuthEffects]),
-    
   ]
 })
 export class UserManagementModule { }
