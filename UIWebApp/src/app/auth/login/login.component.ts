@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit{
         localStorage.setItem('userName', response.user.userName);
         localStorage.setItem('email', response.user.email);
         
-        this.router.navigate(['/user-management/dashboard']);
+        this.router.navigate(['/user-management']);
         },
         error: (error) => {
           // This function runs when the Observable emits an error (i.e., the request fails)
