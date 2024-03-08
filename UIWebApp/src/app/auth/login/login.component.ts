@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { UserModelServiceService } from '../services/user-model-service.service';
+import { UserModelServiceService } from '../../user-management/services/user-model-service.service';
 import { NgForm } from '@angular/forms';
-import { UserDataServiceService } from '../services/user-data-service.service';
+import { UserDataServiceService } from '../../user-management/services/user-data-service.service';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/shared/services/auth.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
 import { Store } from '@ngrx/store';
 
 @Component({

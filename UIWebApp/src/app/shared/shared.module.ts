@@ -7,11 +7,12 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
-    NavbarComponent
+    NavbarComponent,
+    RedOnEmptyDirective
   ],
   imports: [
     CommonModule
   ],
-  exports: [NavbarComponent]
+  exports: [NavbarComponent,RedOnEmptyDirective]
 })
 export class SharedModule { }
