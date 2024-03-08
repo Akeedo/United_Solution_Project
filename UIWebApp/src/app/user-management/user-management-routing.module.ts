@@ -13,7 +13,7 @@ const routes: Routes = [
     canActivateChild: [AuthGuard], // Applying AuthGuard to all child routes
     children: [
       {
-        path: 'dashboard',
+        path: '',
         component: DashboardComponent,
       },
       {
