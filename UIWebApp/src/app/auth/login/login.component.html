@@ -7,6 +7,9 @@
                         <i class="fas fa-3x fa-tachometer-alt tm-site-icon text-center"></i>
                         <h2 class="tm-block-title mt-3">Login</h2>
                     </div>
+                    <div class="col-12 text-center text-danger" *ngIf="errorMessage">
+                        <label>{{errorMessage}}</label>
+                    </div>
                 </div>
                 <div class="row mt-2">
                     <div class="col-12">
@@ -24,7 +27,7 @@
                                 <input type="password" class="form-control form-control-sm" [(ngModel)]="modelSvc.user.password" required minlength="8" id="password" name="password" placeholder="Password" #password="ngModel" appRedOnEmpty>
                                 <div *ngIf="modelSvc.getValidationMessage('password', loginForm)" class="text-danger">
                                     {{ modelSvc.getValidationMessage('password', loginForm) }}
-                                  </div>
+                                </div>
                             </div>
                             <div class="input-group mt-3">
                                 <button type="submit" (click)="onSave(loginForm)" class="btn btn-primary d-inline-block mx-auto">Login</button>
