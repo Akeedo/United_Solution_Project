@@ -26,6 +26,10 @@ export class LoginComponent implements OnInit{
 
   onSave(loginForm: NgForm) {
    try{ 
+  if (loginForm.invalid) {
+      this.errorMessage = 'Please correct the errors and try again.';
+      return;
+  }
     this.authSvc.onLogin(this.modelSvc.user).subscribe({
         next: (response) => {
           // This function runs when the Observable emits a value (i.e., the request succeeds)
