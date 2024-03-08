@@ -23,8 +23,7 @@ import { RouterModule } from '@angular/router';
     AppRoutingModule,
     HttpClientModule,
     SharedModule,
-    FormsModule,
-    RouterModule 
+    FormsModule, 
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },],
