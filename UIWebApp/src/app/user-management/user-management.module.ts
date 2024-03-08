@@ -9,15 +9,22 @@ import { RedOnEmptyDirective } from '../shared/directives/red-on-empty.directive
 import { LoginComponent } from '../auth/login/login.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { SharedModule } from "../shared/shared.module";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+
 
 
 
 @NgModule({
-  declarations: [DashboardComponent, UserRegistrationComponent],
-  imports: [
-    CommonModule,
-    UserManagementRoutingModule,
-    FormsModule,
-   ]
+    declarations: [DashboardComponent, UserRegistrationComponent],
+    imports: [
+        CommonModule,
+        UserManagementRoutingModule,
+        FormsModule,
+        SharedModule,
+     
+    ]
 })
 export class UserManagementModule { }
