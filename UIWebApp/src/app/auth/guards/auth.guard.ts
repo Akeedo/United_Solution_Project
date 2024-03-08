@@ -23,14 +23,14 @@ export class AuthGuard implements CanActivate, CanActivateChild  {
       const expectedUserName =  route.data['expectedUserName'];
       const currentUserName = this.authService.getCurrentUserName();
       if (expectedUserName && currentUserName !== expectedUserName) {
-        this.router.navigate(['/user-management/auth/login']); // Redirect to login page
+        this.router.navigate(['//auth/login']); // Redirect to login page
         return false;
       } 
 
     const isLoggedIn = this.authService.isLoggedIn(); // Implement this method in your AuthService
     
     if (!isLoggedIn) {
-      this.router.navigate(['/user-management/auth/login']); // Redirect to login page
+      this.router.navigate(['//auth/login']); // Redirect to login page
       return false;
     }
     

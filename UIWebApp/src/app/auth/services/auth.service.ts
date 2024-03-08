@@ -33,7 +33,7 @@ export class AuthService {
     localStorage.removeItem('userName'); 
     localStorage.removeItem('refresh_token');
     // Optionally, clear other stored user info
-    this.router.navigate(['/user-management/auth/login']); // Redirect to login page
+    this.router.navigate(['//auth/login']); // Redirect to login page
   }
 
 
