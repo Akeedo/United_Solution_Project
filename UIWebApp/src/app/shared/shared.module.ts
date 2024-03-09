@@ -8,8 +8,9 @@ import { LineChartComponent } from './components/line-chart/line-chart.component
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-
-
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -20,11 +21,11 @@ import { InputTextModule } from 'primeng/inputtext';
     BarChartComponent
   ],
   imports: [
-    
+    ToastModule,
     CommonModule,
     RouterModule,
     ButtonModule, 
-    InputTextModule 
+    InputTextModule
      
   ],
   exports: [
@@ -33,7 +34,10 @@ import { InputTextModule } from 'primeng/inputtext';
     RedOnEmptyDirective,
     RouterModule, 
     ButtonModule, 
-    InputTextModule 
+    InputTextModule,
+    MessagesModule,
+    MessageModule,
+    ToastModule
   ]
 })
 export class SharedModule { }
