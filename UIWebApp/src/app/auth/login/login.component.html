@@ -7,9 +7,14 @@
                         <i class="fas fa-3x fa-tachometer-alt tm-site-icon text-center"></i>
                         <h2 class="tm-block-title mt-3">Login</h2>
                     </div>
+                    <p-toast></p-toast>
                     <div class="col-12 text-center text-danger" *ngIf="errorMessage">
-                        <label>{{errorMessage}}</label>
+                        
+                    <div *ngIf="emptyUserLogin">
+                    <p-messages [(value)]="messages" [enableService]="false" [closable]="true"></p-messages>
+
                     </div>
+                </div>
                 </div>
                 <div class="row mt-2">
                     <div class="col-12">
@@ -19,14 +24,14 @@
                                 <input type="email" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7" [(ngModel)]="modelSvc.user.email" required id="email" name="email" placeholder="Email" #email="ngModel" appRedOnEmpty
                                     pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$">
                                  <div *ngIf="modelSvc.getValidationMessage('email', loginForm)" class="text-danger">
-                                    {{ modelSvc.getValidationMessage('email', loginForm) }}
+                                    <p-message severity="error" text="{{ modelSvc.getValidationMessage('email', loginForm) }}"></p-message>
                                 </div>
                             </div>
                             <div class="input-group mt-3">
                                 <label for="password" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Password<span class="required-asterisk">*</span></label>
                                 <input type="password" class="form-control form-control-sm" [(ngModel)]="modelSvc.user.password" required minlength="8" id="password" name="password" placeholder="Password" #password="ngModel" appRedOnEmpty>
                                 <div *ngIf="modelSvc.getValidationMessage('password', loginForm)" class="text-danger">
-                                    {{ modelSvc.getValidationMessage('password', loginForm) }}
+                                    <p-message severity="error" text=" {{ modelSvc.getValidationMessage('password', loginForm) }}"></p-message>
                                 </div>
                             </div>
                             <div class="input-group mt-3">
