@@ -9,7 +9,9 @@ import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { SharedModule } from './shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
 
 
 
@@ -20,10 +22,13 @@ import { RouterModule } from '@angular/router';
    ],
   imports: [
     BrowserModule,
+    
+    BrowserAnimationsModule, 
     AppRoutingModule,
     HttpClientModule,
     SharedModule,
     FormsModule, 
+ 
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },],
