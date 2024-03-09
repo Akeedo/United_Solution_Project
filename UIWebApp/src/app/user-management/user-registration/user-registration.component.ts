@@ -6,6 +6,9 @@ import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
+import { catchError, of} from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
+
 
 
 @Component({
@@ -36,7 +39,6 @@ export class UserRegistrationComponent implements OnInit{
   // Inside your component class
 
   onSave(userForm: NgForm) {
-
     if (userForm.invalid) {
       this.emptyUserSave = true;
       this.messages = [
@@ -44,25 +46,40 @@ export class UserRegistrationComponent implements OnInit{
       ];
       return;
     }
- 
-    
-    this.dataSvc.saveUser(this.modelSvc.user).subscribe({
-      next: (data) => {
-        // This function runs when the Observable emits a value (i.e., the request succeeds)
-        this.messageService.add({severity: 'success', summary:  'Heading', detail: data.userName });
-       
-          this.router.navigate(['/user-management']);
-     
-      },
-      error: (e) => {
+  
+    this.dataSvc.saveUser(this.modelSvc.user).pipe(
+      catchError((e) => {
+        if (e instanceof HttpErrorResponse && e.status === 401) {
+          this.messages = [
+            { severity: 'error', summary: 'Error', detail: 'You are not authorized to perform this action'}
+          ];
+          return of(null); // Return an Observable that emits no items and immediately completes
+        }
+
         this.emptyUserSave = true;
-        // This function runs when the Observable emits an error (i.e., the request fails)
+        let errorMessage = 'An unexpected error occurred'; // Default message
+        if (e.error && e.error.message) {
+          errorMessage = e.error.message;
+        } else if (e.statusText) {
+          errorMessage = e.statusText;
+        }
+  
         this.messages = [
-          { severity: 'error', summary: 'Error', detail: e.error.message }
+          { severity: 'error', summary: 'Error', detail: errorMessage }
         ];
+        return of(null); // Return an Observable that emits no items and immediately completes
+      })
+    ).subscribe({
+      next: (response) => {
+        console.log('Status:', response.status);
+        console.log('Headers:', response.headers);
+        console.log('Data:', response.body);
+        this.messageService.add({severity: 'success', summary:  'Heading', detail: response.userName });
+        setTimeout(() => {
+          this.router.navigate(['/user-management']);
+        }, 2000); 
       },
       complete: () => {
-        // This function runs when the Observable completes (i.e., no more values or errors will be emitted)
         console.log('Request completed');
       }
     });
