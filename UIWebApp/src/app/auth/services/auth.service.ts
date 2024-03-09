@@ -10,6 +10,10 @@ export class AuthService {
 
   constructor(private router: Router, private http: HttpClient) { }
 
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
   private apiURL: string = 'http://localhost:3000';
 
   onLogin(user: any): Observable<any>{
@@ -24,6 +28,16 @@ export class AuthService {
 
   getCurrentUserName() {
     return localStorage.getItem('userName');
+  }
+
+  isTokenExpired(): boolean {
+    const token = this.getToken();
+    if (!token) return true;
+
+    const decoded: any = jwt_decode(token);
+    const now = Date.now().valueOf() / 1000;
+    // Check if the token's expiration time is less than the current time
+    return decoded.exp < now;
   }
 
   // Method to log out the user
@@ -61,3 +75,7 @@ private storeJwtToken(jwt: string) {
 }
 
 }
+function jwt_decode(token: string): any {
+  throw new Error('Function not implemented.');
+}
+
