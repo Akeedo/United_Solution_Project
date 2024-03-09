@@ -17,8 +17,7 @@ import { Router } from '@angular/router';
 export class UserRegistrationComponent implements OnInit{
 
   emptyUserSave: boolean = false;
-  successUserSave: boolean = false;
-
+  
   messages: Message[] = [];
 
   userRegistrationForm: NgForm;
@@ -45,38 +44,27 @@ export class UserRegistrationComponent implements OnInit{
       ];
       return;
     }
-    this.emptyUserSave = false;
+ 
     
     this.dataSvc.saveUser(this.modelSvc.user).subscribe({
       next: (data) => {
         // This function runs when the Observable emits a value (i.e., the request succeeds)
         this.messageService.add({severity: 'success', summary:  'Heading', detail: data.userName });
-        this.router.navigate(['/user-management']);
+        setTimeout(() => {
+          this.router.navigate(['/user-management']);
+        }, 2000); // Delay for 3 seconds
       },
-      error: (error) => {
+      error: (e) => {
+        this.emptyUserSave = true;
         // This function runs when the Observable emits an error (i.e., the request fails)
-        (error) => this.handleError(error)
+        this.messages = [
+          { severity: 'error', summary: 'Error', detail: e.error.message }
+        ];
       },
       complete: () => {
         // This function runs when the Observable completes (i.e., no more values or errors will be emitted)
         console.log('Request completed');
       }
     });
-  }
-
-  handleError(error: any) {
-    console.log('Error saving user', error);
-    this.messages = [
-      { severity: 'error', summary: 'Error', detail: 'Error saving user: ' + error.message }
-    ];
-  }
-
-  handleSuccess(data: any) {
-    this.successUserSave = false;
-    this.messages = [
-      { severity: 'success', summary: 'Success', detail: 'User saved successfully: ' + data.message }
-    ];
-  }
-
-  
+  } 
 }
