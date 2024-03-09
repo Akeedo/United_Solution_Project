@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { catchError, switchMap, filter, take } from 'rxjs/operators';
-import { AuthService } from '../services/auth.service'; // Ensure this points to your AuthService
+import { AuthService } from '../services/auth.service'; 
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -12,7 +12,7 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-     let token =  localStorage.getItem('access_token'); // Modify this to match how you retrieve the token
+     let token =  localStorage.getItem('access_token');
 
     if (token) {
       request = this.addToken(request, token);
@@ -34,8 +34,10 @@ export class AuthInterceptor implements HttpInterceptor {
     });
   }
 
+
   private handle401Error(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (!this.isRefreshing) {
+      console.log('Refreshing token...');
       this.isRefreshing = true;
       this.refreshTokenSubject.next(null);
 
@@ -47,8 +49,8 @@ export class AuthInterceptor implements HttpInterceptor {
         }),
         catchError((err) => {
           this.isRefreshing = false;
-          this.authService.logout(); // Ensure you have a logout or similar method to handle failed refresh
-          return throwError(err);
+           this.authService.logout(); // Ensure you have a logout or similar method to handle failed refresh
+           return throwError(err);
         })
       );
     } else {
