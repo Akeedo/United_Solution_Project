@@ -10,6 +10,10 @@ export class NavbarComponent {
 
   constructor(private authService: AuthService) { }
 
+  isAdminLoggedIn(){
+    return this.authService.isAdminLoggedIn();
+  }
+
   logout() {
     this.authService.logout();
   }
