@@ -33,9 +33,16 @@ export class AuthService {
     localStorage.removeItem('userName'); 
     localStorage.removeItem('refresh_token');
     // Optionally, clear other stored user info
-    this.router.navigate(['//auth/login']); // Redirect to login page
+    this.router.navigate(['/auth/login']); // Redirect to login page
   }
 
+  isAdminLoggedIn(){
+    const userName = localStorage.getItem('userName');
+    if(userName === 'admin'){
+      return true;
+    }
+    return false;
+  }
 
 refreshToken() {
   return this.http.post<any>(this.apiURL + '/refresh-token', {
