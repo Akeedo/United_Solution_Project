@@ -11,7 +11,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
-
+import { CalendarModule } from 'primeng/calendar';
 @NgModule({
   declarations: [
     NavbarComponent,
@@ -25,7 +25,8 @@ import { ToastModule } from 'primeng/toast';
     CommonModule,
     RouterModule,
     ButtonModule, 
-    InputTextModule
+    InputTextModule,
+    CalendarModule
      
   ],
   exports: [
@@ -37,7 +38,8 @@ import { ToastModule } from 'primeng/toast';
     InputTextModule,
     MessagesModule,
     MessageModule,
-    ToastModule
+    ToastModule,
+    CalendarModule
   ]
 })
 export class SharedModule { }
