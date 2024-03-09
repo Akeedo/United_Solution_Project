@@ -19,7 +19,7 @@
                 <div class="row mt-2">
                     <div class="col-12">
                         <form #loginForm="ngForm" class="tm-login-form">
-                            <div class="input-group">
+                            <div class="input-group mt-3">
                                 <label for="email" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Email  <span class="required-asterisk">*</span></label>
                                 <input type="email" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7" [(ngModel)]="modelSvc.user.email" required id="email" name="email" placeholder="Email" #email="ngModel" appRedOnEmpty
                                     pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$">
@@ -29,7 +29,7 @@
                             </div>
                             <div class="input-group mt-3">
                                 <label for="password" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Password<span class="required-asterisk">*</span></label>
-                                <input type="password" class="form-control form-control-sm" [(ngModel)]="modelSvc.user.password" required minlength="8" id="password" name="password" placeholder="Password" #password="ngModel" appRedOnEmpty>
+                                <input type="password" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7" [(ngModel)]="modelSvc.user.password" required minlength="8" id="password" name="password" placeholder="Password" #password="ngModel" appRedOnEmpty>
                                 <div *ngIf="modelSvc.getValidationMessage('password', loginForm)" class="text-danger">
                                     <p-message severity="error" text=" {{ modelSvc.getValidationMessage('password', loginForm) }}"></p-message>
                                 </div>
