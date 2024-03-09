@@ -50,9 +50,9 @@ export class UserRegistrationComponent implements OnInit{
       next: (data) => {
         // This function runs when the Observable emits a value (i.e., the request succeeds)
         this.messageService.add({severity: 'success', summary:  'Heading', detail: data.userName });
-        setTimeout(() => {
+       
           this.router.navigate(['/user-management']);
-        }, 2000); // Delay for 3 seconds
+     
       },
       error: (e) => {
         this.emptyUserSave = true;

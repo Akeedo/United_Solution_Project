@@ -90,8 +90,8 @@ app.post('/login', [
     }
 
   // User authentication successful, issue a token
-  const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '3m' }); // Adjust expiresIn as needed
-  const refreshToken = jwt.sign({ userId: user._id }, JWT_REFRESH_SECRET, { expiresIn: '5m' }); // Adjust expiresIn as needed
+  const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '10s' }); // Adjust expiresIn as needed
+  const refreshToken = jwt.sign({ userId: user._id }, JWT_REFRESH_SECRET, { expiresIn: '15m' }); // Adjust expiresIn as needed
 
     // If password matches, login successful
     res.status(200).send({ message: "Login successful", user: { id: user.id, userName: user.userName, email: user.email }, token, refreshToken });
@@ -108,8 +108,8 @@ app.post('/refresh-token', (req, res) => {
     if (err) return res.status(403).send('Invalid Refresh Token');
 
     // Assuming the refresh token is valid, issue a new access token
-    const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: '5m' });
-    res.json({ token, });
+    const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: '5s' });
+    res.json({ token });
   });
 });
 
