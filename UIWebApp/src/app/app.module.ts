@@ -12,6 +12,8 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { ErrorInterceptor } from './auth/interceptors/error.interceptor';
+import { MessageService } from 'primeng/api';
 
 
 
@@ -31,7 +33,10 @@ import { InputTextModule } from 'primeng/inputtext';
  
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },],
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    MessageService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
