@@ -24,7 +24,6 @@ import { InputTextModule } from 'primeng/inputtext';
         UserManagementRoutingModule,
         FormsModule,
         SharedModule,
-     
     ]
 })
 export class UserManagementModule { }
