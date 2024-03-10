@@ -37,10 +37,9 @@ export class AuthInterceptor implements HttpInterceptor {
 
   private handle401Error(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (!this.isRefreshing) {
-      console.log('Refreshing token...');
       this.isRefreshing = true;
       this.refreshTokenSubject.next(null);
-
+  
       return this.authService.refreshToken().pipe(
         switchMap((token: any) => {
           this.isRefreshing = false;
@@ -49,8 +48,11 @@ export class AuthInterceptor implements HttpInterceptor {
         }),
         catchError((err) => {
           this.isRefreshing = false;
-           this.authService.logout(); // Ensure you have a logout or similar method to handle failed refresh
-           return throwError(err);
+          if (err instanceof HttpErrorResponse && err.status === 401) {
+            console.log('Error: Received 401 response during token refresh');
+            this.authService.logout();
+          }
+          return throwError(err);
         })
       );
     } else {
@@ -59,6 +61,12 @@ export class AuthInterceptor implements HttpInterceptor {
         take(1),
         switchMap(jwt => {
           return next.handle(this.addToken(request, jwt));
+        }),
+        catchError((error) => {
+          if (error instanceof HttpErrorResponse && error.status === 401) {
+            console.log('Error: Received 401 response while waiting for token refresh');
+          }
+          return throwError(new Error('Error refreshing token'));
         })
       );
     }
