@@ -13,4 +13,5 @@ Furthermore, I have created two user accounts for initial access and testing pur
 2. User 2:
    - Email: akeedo55@gmail.com
    - Password: akeedo55
+     
 Please note that the database schema is in the db folder.
